@@ -35,12 +35,12 @@ unsigned long dana_do_wysylki = 0;
 const __flash char komenda_polacz[] = "AT+CIPSTART=\"UDP\",\"ntp1.tp.pl\",123";
 const __flash char komenda_rozlacz[] = "AT+CIPCLOSE";
 const __flash char komenda_bajty[] = "AT+CIPSEND=48";
-const __flash char komenda_wyslij[] = "AT+CMGS=\"796163560\"";
+const __flash char komenda_wyslij[] = "AT+CMGS=\"[numertelefonu]\"";
 volatile char odbiorcza[100];
 const __flash char komenda_SZUKANA_OK[] = "\r\nOK\r\n";
 const __flash char komenda_szukana_IPD[] = "+IPD,48:";
 const __flash char komenda_SZUKANA_kontynuuj[] = "\r\nOK\r\n> ";
-const __flash char komenda_polacz_z_router[] = "AT+CWJAP_CUR=\"Buba_wifi_G\",\"MoiGosciE#2017\"";
+const __flash char komenda_polacz_z_router[] = "AT+CWJAP_CUR=\"[wifi]\",\"[haslo]\"";
 volatile unsigned int opoznienie = 0;
 unsigned long czas_odebrany = 0;
 unsigned long czas_UNIX = 0;
@@ -71,40 +71,40 @@ void czekaj_ms (int czas)
 }
 char potwierdz_zapis_na_serwerze (void)
 {
-	if(memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	if(memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					zapisano_na_serwerze,								//szukany tekst
-					strlen_P(zapisano_na_serwerze)					//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+					strlen_P(zapisano_na_serwerze)					//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					) != NULL
 	) return 1;		
 	else return 0;
 }
 char potwierdz_polaczenie_z_serwerem (void)
 {
-	if(memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	if(memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					polaczono_z_serwerem,								//szukany tekst
-					strlen_P(polaczono_z_serwerem)					//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+					strlen_P(polaczono_z_serwerem)					//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					) != NULL
 	) return 1;
 	else return 0;	
 }
 char potwierdz_przesyl_adresu (void)
 {
-	if(memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	if(memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					odebrano_bajty,								//szukany tekst
-					strlen_P(odebrano_bajty)					//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+					strlen_P(odebrano_bajty)					//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					) != NULL
 	) return 1;	
 	else return 0;
 }
 char potwierdz_przeslane_bajty (void)
 {
-	if(memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	if(memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+					index_odebrany,									//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					komenda_SZUKANA_kontynuuj,								//szukany tekst
-					strlen_P(komenda_SZUKANA_kontynuuj)					//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+					strlen_P(komenda_SZUKANA_kontynuuj)					//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 					) != NULL
 	) return 1;
 	else return 0;
@@ -112,10 +112,10 @@ char potwierdz_przeslane_bajty (void)
 char znajdz_ok (void)
 {
 
-	if(memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-			index_odebrany,									//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	if(memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+			index_odebrany,									//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 			komenda_SZUKANA_OK,								//szukany tekst
-			strlen_P(komenda_SZUKANA_OK)					//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+			strlen_P(komenda_SZUKANA_OK)					//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 			) != NULL
 	) return 1;
 	else return 0;
@@ -370,7 +370,7 @@ void wyslij_bajty (void)
 		UDR = 0;
 	}
 	
-	/*  przenios³em do maun()
+	/*  przeniosï¿½em do maun()
 	_delay_ms(1000);
 	while (!(UCSRA & (1<<UDRE)));
 	UDR = '+';
@@ -416,26 +416,26 @@ unsigned long polacz_i_pobierz_czas_UNIX (void)
 	
 	czekaj_ms(1000);
 			
-	if((		memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-	index_odebrany,										//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	if((		memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+	index_odebrany,										//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 	komenda_SZUKANA_OK,									//szukany tekst
-	strlen_P(komenda_SZUKANA_OK)						//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	strlen_P(komenda_SZUKANA_OK)						//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 	)
 	)
 	||
-	(			memmem_P(	(const void *) odbiorcza,						//tablica w której bêdziemy szukaæ
-	index_odebrany,										//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	(			memmem_P(	(const void *) odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+	index_odebrany,										//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 	juz_polaczono,										//szukany tekst
-	strlen_P(juz_polaczono)								//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+	strlen_P(juz_polaczono)								//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 	)
 	))
 	{
 		wyslij_komenda_bajty();
 		czekaj_ms(2000);
-		if(		memmem_P(	(const void *)odbiorcza,								//tablica w której bêdziemy szukaæ
-		index_odebrany,											//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+		if(		memmem_P(	(const void *)odbiorcza,								//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+		index_odebrany,											//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 		komenda_SZUKANA_kontynuuj,								//szukany tekst
-		strlen_P(komenda_SZUKANA_kontynuuj)						//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+		strlen_P(komenda_SZUKANA_kontynuuj)						//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 		)
 		)
 		{
@@ -443,22 +443,22 @@ unsigned long polacz_i_pobierz_czas_UNIX (void)
 					
 			wyslij_bajty();
 			czekaj_ms(3000);
-			wynik = memmem_P(	(const void *)odbiorcza,						//tablica w której bêdziemy szukaæ
-			index_odebrany,									//ile tekstu z tej tablicy ma przeszukaæ    (-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+			wynik = memmem_P(	(const void *)odbiorcza,						//tablica w ktï¿½rej bï¿½dziemy szukaï¿½
+			index_odebrany,									//ile tekstu z tej tablicy ma przeszukaï¿½    (-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 			komenda_szukana_IPD,							//szukany tekst
-			strlen_P(komenda_szukana_IPD)					//d³ugoœæ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koñca tekstu, którym jest bajt o wartoœci zero)
+			strlen_P(komenda_szukana_IPD)					//dï¿½ugoï¿½ï¿½ tekstu szukanego					(-1 bo do tablicy dodawany jest znak koï¿½ca tekstu, ktï¿½rym jest bajt o wartoï¿½ci zero)
 			);
 			
 			
 			if (wynik != NULL)
 			{
-				//... a jeœli nie znajdzie IPD??? - brakuje reakcji
+				//... a jeï¿½li nie znajdzie IPD??? - brakuje reakcji
 				wynik += 48; // ustaw wskaznik na date wyslania czasu unix
 				pobierz_czas();
 				
 				
 					
-				//tutaj przenios³em wysy³anie +++ i wszystko dzia³a OK
+				//tutaj przeniosï¿½em wysyï¿½anie +++ i wszystko dziaï¿½a OK
 				_delay_ms(500);
 				while (!(UCSRA & (1<<UDRE)));
 				UDR = '+';
@@ -466,7 +466,7 @@ unsigned long polacz_i_pobierz_czas_UNIX (void)
 				UDR = '+';
 				while (!(UCSRA & (1<<UDRE)));
 				UDR = '+';
-				_delay_ms(1000);			//niezbêdny zgodnie z dokumentacj¹
+				_delay_ms(1000);			//niezbï¿½dny zgodnie z dokumentacjï¿½
 					
 				rozlacz();
 				czekaj_ms(1000);
@@ -486,7 +486,7 @@ unsigned long polacz_i_pobierz_czas_UNIX (void)
 				UDR = '+';
 				while (!(UCSRA & (1<<UDRE)));
 				UDR = '+';
-				_delay_ms(1000);			//niezbêdny zgodnie z dokumentacj¹
+				_delay_ms(1000);			//niezbï¿½dny zgodnie z dokumentacjï¿½
 				
 				rozlacz();
 				czekaj_ms(1000);

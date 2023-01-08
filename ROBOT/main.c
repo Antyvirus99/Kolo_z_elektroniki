@@ -7,16 +7,7 @@
  -p  atmega48 -B8  -c usbasp -P usb  -U flash:w:$(ProjectDir)Debug\$(ItemFileName).hex:i
  
  */ 
-// email - grzegorz.jur99@gmail.com
-//nick - antyvirus34
-//haslo CBA - grzegorz_jur
-//nazwa konta : antyvirus34.cba.pl
-//konto ftp: admin@antyvirus34.cba.pl
-//haslo FTP: grzegorz_jur
-//nazwa bazy danych: antyvirus34_cba_pl
-//nazwa uzytkownika: antyvirus34
-//nazwa hosta: mysql.cba.pl
-//haslo bazy danych: grzegorz_jur
+
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -249,7 +240,7 @@ int main(void)
 	ignoruj_dane = 0;
 	
 	
-	//w³acz zasilanie HC05
+	//wï¿½acz zasilanie HC05
 	DDRD |= (1<<PD4);
 	PORTD &=~ (1<<PD4);
 
@@ -257,7 +248,7 @@ int main(void)
 	
 	
 	//Program zadeklarowany jest dla ATmega8, a pracujesz na ATmega48  :-)
-	//Po zmianie zapewne bedziesz musia³ poprawiæ funkcje USART itp bo rejestry s¹ inne.
+	//Po zmianie zapewne bedziesz musiaï¿½ poprawiï¿½ funkcje USART itp bo rejestry sï¿½ inne.
 	
 	
 	DDRD	|=	(1<<PD7);	//LED

@@ -34,9 +34,9 @@ volatile dane_t dane;
 
 
 // PID nastawy
-volatile unsigned long		zadana_predkosc_w_impulsach = 20000;	//by³o 4500
+volatile unsigned long		zadana_predkosc_w_impulsach = 20000;	//byï¿½o 4500
 volatile signed int			kp_x100 = 250;		//250
-volatile signed int			ki_x100 = 10;		//10         <--- pokazaæ wp³yw zmiany na reakcjê po zwiêkszeniu i gwa³townym zmniejszeniu obci¹¿enia
+volatile signed int			ki_x100 = 10;		//10         <--- pokazaï¿½ wpï¿½yw zmiany na reakcjï¿½ po zwiï¿½kszeniu i gwaï¿½townym zmniejszeniu obciï¿½ï¿½enia
 volatile signed int			kd_x100 = 150;		//150
 
 
@@ -58,23 +58,23 @@ ISR (TIMER1_OVF_vect)
 
 ISR (TIMER1_CAPT_vect)
 {
-	//przerwanie obliczaj¹ce PID
+	//przerwanie obliczajï¿½ce PID
 
 	static unsigned int		czas_poczatkowy = 0;
 	
-	dane.czas_koncowy		= ICR1;	//z³apany stan licznika
+	dane.czas_koncowy		= ICR1;	//zï¿½apany stan licznika
 	
 	dane.czas_obrotu_kola_w_impulsach_timer1 = (dane.ovf_counter * 1024UL + dane.czas_koncowy) - dane.czas_poczatkowy;	//DD  1024 a nie 65536, bo timer1 ustawiony na PWM 10 bit
 		
-	//aktualna minus zadana poniewa¿ czas obrotu roœnie wraz ze spadkiem prêdkoœci, co oznacza, ¿e powinniœmy zwiêkszaæ OCR1,
-	//a to oznacza, ¿e uchyb powinien byæ dodatni
+	//aktualna minus zadana poniewaï¿½ czas obrotu roï¿½nie wraz ze spadkiem prï¿½dkoï¿½ci, co oznacza, ï¿½e powinniï¿½my zwiï¿½kszaï¿½ OCR1,
+	//a to oznacza, ï¿½e uchyb powinien byï¿½ dodatni
 	dane.uchyb = dane.czas_obrotu_kola_w_impulsach_timer1 - zadana_predkosc_w_impulsach;	
 		
 	dane.suma_uchybow	=  dane.suma_uchybow + dane.uchyb;
 		
-	dane.pid = (kp_x100 * dane.uchyb	+	ki_x100 * dane.suma_uchybow	+	kd_x100 * (dane.uchyb - dane.uchyb_poprzedni)) / 50000; // dzielimyu przez 100 bo wspó³czynniki s¹ pomno¿one przez 100
-																																	//zastanowiæ siê, dlaczego 50000 jest optymalnym dzielnikiem !!!!!
-																																	//obserwuj¹c zmiany pid czyli OCR1A
+	dane.pid = (kp_x100 * dane.uchyb	+	ki_x100 * dane.suma_uchybow	+	kd_x100 * (dane.uchyb - dane.uchyb_poprzedni)) / 50000; // dzielimyu przez 100 bo wspï¿½czynniki sï¿½ pomnoï¿½one przez 100
+																																	//zastanowiï¿½ siï¿½, dlaczego 50000 jest optymalnym dzielnikiem !!!!!
+																																	//obserwujï¿½c zmiany pid czyli OCR1A
 	dane.uchyb_poprzedni = dane.uchyb;
 	
 	//zabezpieczenie zakresu OCR1A
@@ -82,19 +82,19 @@ ISR (TIMER1_CAPT_vect)
 	if (dane.pid > 1023)	dane.pid = 1023;
 	
 	//ustaw PID
-	OCR1A = dane.pid;			//szerokosc impulsu PWM reguluje pr¹dem silnika
+	OCR1A = dane.pid;			//szerokosc impulsu PWM reguluje prï¿½dem silnika
 
-	//paczka danych	- pozosta³e
+	//paczka danych	- pozostaï¿½e
 	dane.czas_poczatkowy	= czas_poczatkowy;
 	dane.ovf_counter		= dane.ovf_counter;
 	
 	
 
-	//przygotuj do nastêpnego pomiaru
+	//przygotuj do nastï¿½pnego pomiaru
 	dane.ovf_counter = 0;
 	//czas_poczatkowy			= dane.czas_koncowy ;
 	
-	//Doda³em zerowanie - omówiæ i pokazaæ wp³yw na problem peaków na wykresie czas_obrotu_kola_w_impulsach_timer1 
+	//Dodaï¿½em zerowanie - omï¿½wiï¿½ i pokazaï¿½ wpï¿½yw na problem peakï¿½w na wykresie czas_obrotu_kola_w_impulsach_timer1 
 	czas_poczatkowy =0;//dane.czas_koncowy;
 	TCNT1 = 0;
 	TIFR |= TOV1;
@@ -173,7 +173,7 @@ int main(void)
 	usart_inicjuj();
 
 	//wlacz timer1
-	TCCR1B	|= (1<<CS10);					//prescaler 1 - by³ wczeœnie 8
+	TCCR1B	|= (1<<CS10);					//prescaler 1 - byï¿½ wczeï¿½nie 8
 	
 	//wystartuj silnik
 	OCR1A = 1023;							//maksymalne PWM
@@ -185,7 +185,7 @@ int main(void)
 	sei();									//wlacz przerwania globalne
 	
 	
-	//pêtla g³ówna
+	//pï¿½tla gï¿½ï¿½wna
     while (1) 
     {
 		
@@ -205,11 +205,11 @@ int main(void)
 		//#define USART_PELNE			1
 		
 		#ifdef USART_WYKRES_CZAS_OBROTU
-			//Wysy³aj dane co konkretny zadany czas
+			//Wysyï¿½aj dane co konkretny zadany czas
 			if((licznik_OVF_dla_usartu >= 800) && (UCSRA & (1<<UDRE)))
 			{
 				cli();
-				UDR = dane_temp.czas_obrotu_kola_w_impulsach_timer1 / 500;	// dzielimy by dostosowaæ do aplikacji rysuj¹cej wykres 0-255
+				UDR = dane_temp.czas_obrotu_kola_w_impulsach_timer1 / 500;	// dzielimy by dostosowaï¿½ do aplikacji rysujï¿½cej wykres 0-255
 				sei();
 				licznik_OVF_dla_usartu = 0;
 				//if(zadana_predkosc_w_impulsach < 65000) zadana_predkosc_w_impulsach += 5;
@@ -217,18 +217,18 @@ int main(void)
 		#endif
 		
 		#ifdef USART_WYKRES_OCR1A
-			//Wysy³aj dane co konkretny zadany czas
+			//Wysyï¿½aj dane co konkretny zadany czas
 			if((licznik_OVF_dla_usartu >= 800) && (UCSRA & (1<<UDRE)))
 			{
 				cli();
-				UDR = (unsigned char) (dane_temp.pid /4);	// dzielimy przez 4 by dostosowaæ do aplikacji rysuj¹cej wykres 0-255
+				UDR = (unsigned char) (dane_temp.pid /4);	// dzielimy przez 4 by dostosowaï¿½ do aplikacji rysujï¿½cej wykres 0-255
 				sei();
 				licznik_OVF_dla_usartu = 0;
 			}
 		#endif
 		
 		#ifdef USART_PELNE		
-			//Wysy³aj dane co konkretny zadany czas
+			//Wysyï¿½aj dane co konkretny zadany czas
 			if((licznik_OVF_dla_usartu >= 2000) && (UCSRA & (1<<UDRE)))
 			{
 				wyslij_dane_szczegolowe();

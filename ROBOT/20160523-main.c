@@ -7,16 +7,7 @@
  -p  atmega48 -B8  -c usbasp -P usb  -U flash:w:$(ProjectDir)Debug\$(ItemFileName).hex:i
  
  */ 
-// email - grzegorz.jur99@gmail.com
-//nick - antyvirus34
-//haslo CBA - grzegorz_jur
-//nazwa konta : antyvirus34.cba.pl
-//konto ftp: admin@antyvirus34.cba.pl
-//haslo FTP: grzegorz_jur
-//nazwa bazy danych: antyvirus34_cba_pl
-//nazwa uzytkownika: antyvirus34
-//nazwa hosta: mysql.cba.pl
-//haslo bazy danych: grzegorz_jur
+
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -197,7 +188,7 @@ int main(void)
 	usart_inicjuj();
 	_delay_ms(2000);
 	
-	//w³acz zasilanie HC05
+	//wï¿½acz zasilanie HC05
 	DDRD |= (1<<PD4);
 	PORTD &=~ (1<<PD4);
 
@@ -205,7 +196,7 @@ int main(void)
 	
 	
 	//Program zadeklarowany jest dla ATmega8, a pracujesz na ATmega48  :-)
-	//Po zmianie zapewne bedziesz musia³ poprawiæ funkcje USART itp bo rejestry s¹ inne.
+	//Po zmianie zapewne bedziesz musiaï¿½ poprawiï¿½ funkcje USART itp bo rejestry sï¿½ inne.
 	
 	
 	DDRD	|= (1<<PD7);//LED
@@ -452,11 +443,11 @@ int main(void)
 	
 	
 	
-	PORTB |= (1<<PB0); //w³¹czenie pull up dla czujnika
+	PORTB |= (1<<PB0); //wï¿½ï¿½czenie pull up dla czujnika
 	
 	
 	
-	//rozpoczêliœmy pomiar prêdkoœci od przypadku pomiaru czasu timerem i przerwaniem na pinie int1
+	//rozpoczï¿½liï¿½my pomiar prï¿½dkoï¿½ci od przypadku pomiaru czasu timerem i przerwaniem na pinie int1
 	
 	EICRA |= (1<<ISC11) | (1<<ISC10); // Przerwanie dla zbocza narastajacego dla pin INT1
 	EIMSK |= (1<<INT1); //wlacz przerwanie
@@ -471,7 +462,7 @@ int main(void)
 	DDRB |= (1<<PB1); //OC1A jako wyjscie
 	
 	TCCR1B |= (1<<ICES1); // zbocze narastajace na pinie ICP1
-	TCCR1B |= (1<<ICNC1);	//eliminacja szumów na ICP1
+	TCCR1B |= (1<<ICNC1);	//eliminacja szumï¿½w na ICP1
 	TIMSK1  |= (1<<ICIE1); //wlacz przerwania Capture uniut dla ICP1
 	
 	
