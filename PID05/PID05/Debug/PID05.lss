@@ -1,0 +1,834 @@
+
+PID05.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000552  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00000552  000005e6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000058  0080006a  0080006a  000005f0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000005f0  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000070  00000000  00000000  00000620  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000885  00000000  00000000  00000690  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000002fe  00000000  00000000  00000f15  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000322  00000000  00000000  00001213  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000178  00000000  00000000  00001538  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000304  00000000  00000000  000016b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000031b  00000000  00000000  000019b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000050  00000000  00000000  00001ccf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	59 c0       	rjmp	.+178    	; 0xbe <__vector_5>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	26 c0       	rjmp	.+76     	; 0x5e <__vector_8>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e2 e5       	ldi	r30, 0x52	; 82
+  3a:	f5 e0       	ldi	r31, 0x05	; 5
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 36       	cpi	r26, 0x6A	; 106
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	aa e6       	ldi	r26, 0x6A	; 106
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a2 3c       	cpi	r26, 0xC2	; 194
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	9d d1       	rcall	.+826    	; 0x394 <main>
+  5a:	79 c2       	rjmp	.+1266   	; 0x54e <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <__vector_8>:
+    } else if (__radix < 2 || __radix > 36) {
+	*__s = 0;
+	return __s;
+    } else {
+	extern char *__utoa_ncheck (unsigned int, char *, unsigned char);
+	return __utoa_ncheck (__val, __s, __radix);
+  5e:	1f 92       	push	r1
+
+	ultoa (dane_temp.czas_obrotu_kola_w_impulsach_timer1, usart_bufor, 10);
+	usart_send();
+	
+	utoa (dane_temp.pid, usart_bufor, 10);
+	usart_send();
+  60:	0f 92       	push	r0
+    } else if (__radix < 2 || __radix > 36) {
+	*__s = 0;
+	return __s;
+    } else {
+	extern char *__itoa_ncheck (int, char *, unsigned char);
+	return __itoa_ncheck (__val, __s, __radix);
+  62:	0f b6       	in	r0, 0x3f	; 63
+  64:	0f 92       	push	r0
+  66:	11 24       	eor	r1, r1
+  68:	8f 93       	push	r24
+  6a:	9f 93       	push	r25
+  6c:	af 93       	push	r26
+  6e:	bf 93       	push	r27
+  70:	ef 93       	push	r30
+	
+	itoa (dane_temp.suma_uchybow, usart_bufor, 10);
+	usart_send();
+  72:	ff 93       	push	r31
+	
+	itoa (dane_temp.uchyb - dane_temp.uchyb_poprzedni, usart_bufor, 10);
+  74:	e2 e9       	ldi	r30, 0x92	; 146
+  76:	f0 e0       	ldi	r31, 0x00	; 0
+  78:	80 81       	ld	r24, Z
+  7a:	91 81       	ldd	r25, Z+1	; 0x01
+  7c:	01 96       	adiw	r24, 0x01	; 1
+  7e:	91 83       	std	Z+1, r25	; 0x01
+  80:	80 83       	st	Z, r24
+  82:	80 91 6c 00 	lds	r24, 0x006C
+  86:	90 91 6d 00 	lds	r25, 0x006D
+  8a:	a0 91 6e 00 	lds	r26, 0x006E
+  8e:	b0 91 6f 00 	lds	r27, 0x006F
+	usart_send();
+	
+	usart_send_newline();
+  92:	01 96       	adiw	r24, 0x01	; 1
+ISR (TIMER1_OVF_vect)
+{
+	dane.ovf_counter ++;
+	
+	//pomocnicze
+	licznik_OVF_dla_usartu ++;
+  94:	a1 1d       	adc	r26, r1
+  96:	b1 1d       	adc	r27, r1
+  98:	80 93 6c 00 	sts	0x006C, r24
+  9c:	90 93 6d 00 	sts	0x006D, r25
+  a0:	a0 93 6e 00 	sts	0x006E, r26
+  a4:	b0 93 6f 00 	sts	0x006F, r27
+}
+  a8:	ff 91       	pop	r31
+  aa:	ef 91       	pop	r30
+  ac:	bf 91       	pop	r27
+  ae:	af 91       	pop	r26
+  b0:	9f 91       	pop	r25
+  b2:	8f 91       	pop	r24
+  b4:	0f 90       	pop	r0
+  b6:	0f be       	out	0x3f, r0	; 63
+  b8:	0f 90       	pop	r0
+  ba:	1f 90       	pop	r1
+  bc:	18 95       	reti
+
+000000be <__vector_5>:
+
+//-----------------------------------------------------------------------------------------------
+
+ISR (TIMER1_CAPT_vect)
+{
+  be:	1f 92       	push	r1
+  c0:	0f 92       	push	r0
+  c2:	0f b6       	in	r0, 0x3f	; 63
+  c4:	0f 92       	push	r0
+  c6:	11 24       	eor	r1, r1
+  c8:	2f 92       	push	r2
+  ca:	3f 92       	push	r3
+  cc:	4f 92       	push	r4
+  ce:	5f 92       	push	r5
+  d0:	6f 92       	push	r6
+  d2:	7f 92       	push	r7
+  d4:	8f 92       	push	r8
+  d6:	9f 92       	push	r9
+  d8:	af 92       	push	r10
+  da:	bf 92       	push	r11
+  dc:	cf 92       	push	r12
+  de:	df 92       	push	r13
+  e0:	ef 92       	push	r14
+  e2:	ff 92       	push	r15
+  e4:	0f 93       	push	r16
+  e6:	1f 93       	push	r17
+  e8:	2f 93       	push	r18
+  ea:	3f 93       	push	r19
+  ec:	4f 93       	push	r20
+  ee:	5f 93       	push	r21
+  f0:	6f 93       	push	r22
+  f2:	7f 93       	push	r23
+  f4:	8f 93       	push	r24
+  f6:	9f 93       	push	r25
+  f8:	af 93       	push	r26
+  fa:	bf 93       	push	r27
+  fc:	ef 93       	push	r30
+  fe:	ff 93       	push	r31
+ 100:	cf 93       	push	r28
+ 102:	df 93       	push	r29
+ 104:	00 d0       	rcall	.+0      	; 0x106 <__vector_5+0x48>
+ 106:	00 d0       	rcall	.+0      	; 0x108 <__vector_5+0x4a>
+ 108:	cd b7       	in	r28, 0x3d	; 61
+ 10a:	de b7       	in	r29, 0x3e	; 62
+	//przerwanie obliczaj¹ce PID
+
+	static unsigned int		czas_poczatkowy = 0;
+	
+	dane.czas_koncowy		= ICR1;	//z³apany stan licznika
+ 10c:	86 b5       	in	r24, 0x26	; 38
+ 10e:	97 b5       	in	r25, 0x27	; 39
+ 110:	90 93 91 00 	sts	0x0091, r25
+ 114:	80 93 90 00 	sts	0x0090, r24
+	
+	dane.czas_obrotu_kola_w_impulsach_timer1 = (dane.ovf_counter * 1024UL + dane.czas_koncowy) - dane.czas_poczatkowy;	//DD  1024 a nie 65536, bo timer1 ustawiony na PWM 10 bit
+ 118:	80 91 92 00 	lds	r24, 0x0092
+ 11c:	90 91 93 00 	lds	r25, 0x0093
+ 120:	20 91 90 00 	lds	r18, 0x0090
+ 124:	30 91 91 00 	lds	r19, 0x0091
+ 128:	40 91 8e 00 	lds	r20, 0x008E
+ 12c:	50 91 8f 00 	lds	r21, 0x008F
+ 130:	a0 e0       	ldi	r26, 0x00	; 0
+ 132:	b0 e0       	ldi	r27, 0x00	; 0
+ 134:	6a e0       	ldi	r22, 0x0A	; 10
+ 136:	88 0f       	add	r24, r24
+ 138:	99 1f       	adc	r25, r25
+ 13a:	aa 1f       	adc	r26, r26
+ 13c:	bb 1f       	adc	r27, r27
+ 13e:	6a 95       	dec	r22
+ 140:	d1 f7       	brne	.-12     	; 0x136 <__vector_5+0x78>
+ 142:	84 1b       	sub	r24, r20
+ 144:	95 0b       	sbc	r25, r21
+ 146:	a1 09       	sbc	r26, r1
+ 148:	b1 09       	sbc	r27, r1
+ 14a:	82 0f       	add	r24, r18
+ 14c:	93 1f       	adc	r25, r19
+ 14e:	a1 1d       	adc	r26, r1
+ 150:	b1 1d       	adc	r27, r1
+ 152:	80 93 94 00 	sts	0x0094, r24
+ 156:	90 93 95 00 	sts	0x0095, r25
+ 15a:	a0 93 96 00 	sts	0x0096, r26
+ 15e:	b0 93 97 00 	sts	0x0097, r27
+		
+	//aktualna minus zadana poniewa¿ czas obrotu roœnie wraz ze spadkiem prêdkoœci, co oznacza, ¿e powinniœmy zwiêkszaæ OCR1,
+	//a to oznacza, ¿e uchyb powinien byæ dodatni
+	dane.uchyb = dane.czas_obrotu_kola_w_impulsach_timer1 - zadana_predkosc_w_impulsach;	
+ 162:	80 91 94 00 	lds	r24, 0x0094
+ 166:	90 91 95 00 	lds	r25, 0x0095
+ 16a:	a0 91 96 00 	lds	r26, 0x0096
+ 16e:	b0 91 97 00 	lds	r27, 0x0097
+ 172:	40 91 66 00 	lds	r20, 0x0066
+ 176:	50 91 67 00 	lds	r21, 0x0067
+ 17a:	60 91 68 00 	lds	r22, 0x0068
+ 17e:	70 91 69 00 	lds	r23, 0x0069
+ 182:	84 1b       	sub	r24, r20
+ 184:	95 0b       	sbc	r25, r21
+ 186:	a6 0b       	sbc	r26, r22
+ 188:	b7 0b       	sbc	r27, r23
+ 18a:	80 93 9c 00 	sts	0x009C, r24
+ 18e:	90 93 9d 00 	sts	0x009D, r25
+ 192:	a0 93 9e 00 	sts	0x009E, r26
+ 196:	b0 93 9f 00 	sts	0x009F, r27
+		
+	dane.suma_uchybow	=  dane.suma_uchybow + dane.uchyb;
+ 19a:	80 91 98 00 	lds	r24, 0x0098
+ 19e:	90 91 99 00 	lds	r25, 0x0099
+ 1a2:	a0 91 9a 00 	lds	r26, 0x009A
+ 1a6:	b0 91 9b 00 	lds	r27, 0x009B
+ 1aa:	40 91 9c 00 	lds	r20, 0x009C
+ 1ae:	50 91 9d 00 	lds	r21, 0x009D
+ 1b2:	60 91 9e 00 	lds	r22, 0x009E
+ 1b6:	70 91 9f 00 	lds	r23, 0x009F
+ 1ba:	84 0f       	add	r24, r20
+ 1bc:	95 1f       	adc	r25, r21
+ 1be:	a6 1f       	adc	r26, r22
+ 1c0:	b7 1f       	adc	r27, r23
+ 1c2:	80 93 98 00 	sts	0x0098, r24
+ 1c6:	90 93 99 00 	sts	0x0099, r25
+ 1ca:	a0 93 9a 00 	sts	0x009A, r26
+ 1ce:	b0 93 9b 00 	sts	0x009B, r27
+		
+	dane.pid = (kp_x100 * dane.uchyb	+	ki_x100 * dane.suma_uchybow	+	kd_x100 * (dane.uchyb - dane.uchyb_poprzedni)) / 50000; // dzielimyu przez 100 bo wspó³czynniki s¹ pomno¿one przez 100
+ 1d2:	a0 91 64 00 	lds	r26, 0x0064
+ 1d6:	b0 91 65 00 	lds	r27, 0x0065
+ 1da:	20 91 9c 00 	lds	r18, 0x009C
+ 1de:	30 91 9d 00 	lds	r19, 0x009D
+ 1e2:	40 91 9e 00 	lds	r20, 0x009E
+ 1e6:	50 91 9f 00 	lds	r21, 0x009F
+ 1ea:	00 91 62 00 	lds	r16, 0x0062
+ 1ee:	10 91 63 00 	lds	r17, 0x0063
+ 1f2:	60 91 98 00 	lds	r22, 0x0098
+ 1f6:	70 91 99 00 	lds	r23, 0x0099
+ 1fa:	80 91 9a 00 	lds	r24, 0x009A
+ 1fe:	90 91 9b 00 	lds	r25, 0x009B
+ 202:	69 83       	std	Y+1, r22	; 0x01
+ 204:	7a 83       	std	Y+2, r23	; 0x02
+ 206:	8b 83       	std	Y+3, r24	; 0x03
+ 208:	9c 83       	std	Y+4, r25	; 0x04
+ 20a:	20 90 60 00 	lds	r2, 0x0060
+ 20e:	30 90 61 00 	lds	r3, 0x0061
+ 212:	80 90 9c 00 	lds	r8, 0x009C
+ 216:	90 90 9d 00 	lds	r9, 0x009D
+ 21a:	a0 90 9e 00 	lds	r10, 0x009E
+ 21e:	b0 90 9f 00 	lds	r11, 0x009F
+ 222:	40 90 a4 00 	lds	r4, 0x00A4
+ 226:	50 90 a5 00 	lds	r5, 0x00A5
+ 22a:	60 90 a6 00 	lds	r6, 0x00A6
+ 22e:	70 90 a7 00 	lds	r7, 0x00A7
+ 232:	71 d1       	rcall	.+738    	; 0x516 <__mulshisi3>
+ 234:	6b 01       	movw	r12, r22
+ 236:	7c 01       	movw	r14, r24
+ 238:	d8 01       	movw	r26, r16
+ 23a:	29 81       	ldd	r18, Y+1	; 0x01
+ 23c:	3a 81       	ldd	r19, Y+2	; 0x02
+ 23e:	4b 81       	ldd	r20, Y+3	; 0x03
+ 240:	5c 81       	ldd	r21, Y+4	; 0x04
+ 242:	69 d1       	rcall	.+722    	; 0x516 <__mulshisi3>
+ 244:	c6 0e       	add	r12, r22
+ 246:	d7 1e       	adc	r13, r23
+ 248:	e8 1e       	adc	r14, r24
+ 24a:	f9 1e       	adc	r15, r25
+ 24c:	84 18       	sub	r8, r4
+ 24e:	95 08       	sbc	r9, r5
+ 250:	a6 08       	sbc	r10, r6
+ 252:	b7 08       	sbc	r11, r7
+ 254:	d1 01       	movw	r26, r2
+ 256:	a5 01       	movw	r20, r10
+ 258:	94 01       	movw	r18, r8
+ 25a:	5d d1       	rcall	.+698    	; 0x516 <__mulshisi3>
+ 25c:	c6 0e       	add	r12, r22
+ 25e:	d7 1e       	adc	r13, r23
+ 260:	e8 1e       	adc	r14, r24
+ 262:	f9 1e       	adc	r15, r25
+ 264:	c7 01       	movw	r24, r14
+ 266:	b6 01       	movw	r22, r12
+ 268:	20 e5       	ldi	r18, 0x50	; 80
+ 26a:	33 ec       	ldi	r19, 0xC3	; 195
+ 26c:	40 e0       	ldi	r20, 0x00	; 0
+ 26e:	50 e0       	ldi	r21, 0x00	; 0
+ 270:	36 d1       	rcall	.+620    	; 0x4de <__divmodsi4>
+ 272:	20 93 a0 00 	sts	0x00A0, r18
+ 276:	30 93 a1 00 	sts	0x00A1, r19
+ 27a:	40 93 a2 00 	sts	0x00A2, r20
+ 27e:	50 93 a3 00 	sts	0x00A3, r21
+																																	//zastanowiæ siê, dlaczego 50000 jest optymalnym dzielnikiem !!!!!
+																																	//obserwuj¹c zmiany pid czyli OCR1A
+	dane.uchyb_poprzedni = dane.uchyb;
+ 282:	80 91 9c 00 	lds	r24, 0x009C
+ 286:	90 91 9d 00 	lds	r25, 0x009D
+ 28a:	a0 91 9e 00 	lds	r26, 0x009E
+ 28e:	b0 91 9f 00 	lds	r27, 0x009F
+ 292:	80 93 a4 00 	sts	0x00A4, r24
+ 296:	90 93 a5 00 	sts	0x00A5, r25
+ 29a:	a0 93 a6 00 	sts	0x00A6, r26
+ 29e:	b0 93 a7 00 	sts	0x00A7, r27
+	
+	//zabezpieczenie zakresu OCR1A
+	if (dane.pid < 0)		dane.pid = 0;
+ 2a2:	80 91 a0 00 	lds	r24, 0x00A0
+ 2a6:	90 91 a1 00 	lds	r25, 0x00A1
+ 2aa:	a0 91 a2 00 	lds	r26, 0x00A2
+ 2ae:	b0 91 a3 00 	lds	r27, 0x00A3
+ 2b2:	b7 ff       	sbrs	r27, 7
+ 2b4:	08 c0       	rjmp	.+16     	; 0x2c6 <__vector_5+0x208>
+ 2b6:	10 92 a0 00 	sts	0x00A0, r1
+ 2ba:	10 92 a1 00 	sts	0x00A1, r1
+ 2be:	10 92 a2 00 	sts	0x00A2, r1
+ 2c2:	10 92 a3 00 	sts	0x00A3, r1
+	if (dane.pid > 1023)	dane.pid = 1023;
+ 2c6:	80 91 a0 00 	lds	r24, 0x00A0
+ 2ca:	90 91 a1 00 	lds	r25, 0x00A1
+ 2ce:	a0 91 a2 00 	lds	r26, 0x00A2
+ 2d2:	b0 91 a3 00 	lds	r27, 0x00A3
+ 2d6:	81 15       	cp	r24, r1
+ 2d8:	94 40       	sbci	r25, 0x04	; 4
+ 2da:	a1 05       	cpc	r26, r1
+ 2dc:	b1 05       	cpc	r27, r1
+ 2de:	64 f0       	brlt	.+24     	; 0x2f8 <__vector_5+0x23a>
+ 2e0:	8f ef       	ldi	r24, 0xFF	; 255
+ 2e2:	93 e0       	ldi	r25, 0x03	; 3
+ 2e4:	a0 e0       	ldi	r26, 0x00	; 0
+ 2e6:	b0 e0       	ldi	r27, 0x00	; 0
+ 2e8:	80 93 a0 00 	sts	0x00A0, r24
+ 2ec:	90 93 a1 00 	sts	0x00A1, r25
+ 2f0:	a0 93 a2 00 	sts	0x00A2, r26
+ 2f4:	b0 93 a3 00 	sts	0x00A3, r27
+	
+	//ustaw PID
+	OCR1A = dane.pid;			//szerokosc impulsu PWM reguluje pr¹dem silnika
+ 2f8:	80 91 a0 00 	lds	r24, 0x00A0
+ 2fc:	90 91 a1 00 	lds	r25, 0x00A1
+ 300:	a0 91 a2 00 	lds	r26, 0x00A2
+ 304:	b0 91 a3 00 	lds	r27, 0x00A3
+ 308:	9b bd       	out	0x2b, r25	; 43
+ 30a:	8a bd       	out	0x2a, r24	; 42
+
+	//paczka danych	- pozosta³e
+	dane.czas_poczatkowy	= czas_poczatkowy;
+ 30c:	80 91 6a 00 	lds	r24, 0x006A
+ 310:	90 91 6b 00 	lds	r25, 0x006B
+ 314:	90 93 8f 00 	sts	0x008F, r25
+ 318:	80 93 8e 00 	sts	0x008E, r24
+	dane.ovf_counter		= dane.ovf_counter;
+ 31c:	80 91 92 00 	lds	r24, 0x0092
+ 320:	90 91 93 00 	lds	r25, 0x0093
+ 324:	90 93 93 00 	sts	0x0093, r25
+ 328:	80 93 92 00 	sts	0x0092, r24
+	
+	
+
+	//przygotuj do nastêpnego pomiaru
+	dane.ovf_counter = 0;
+ 32c:	10 92 93 00 	sts	0x0093, r1
+ 330:	10 92 92 00 	sts	0x0092, r1
+	//czas_poczatkowy			= dane.czas_koncowy ;
+	
+	//Doda³em zerowanie - omówiæ i pokazaæ wp³yw na problem peaków na wykresie czas_obrotu_kola_w_impulsach_timer1 
+	czas_poczatkowy =0;//dane.czas_koncowy;
+ 334:	10 92 6b 00 	sts	0x006B, r1
+ 338:	10 92 6a 00 	sts	0x006A, r1
+	TCNT1 = 0;
+ 33c:	1d bc       	out	0x2d, r1	; 45
+ 33e:	1c bc       	out	0x2c, r1	; 44
+	TIFR |= TOV1;
+ 340:	88 b7       	in	r24, 0x38	; 56
+ 342:	82 60       	ori	r24, 0x02	; 2
+ 344:	88 bf       	out	0x38, r24	; 56
+	
+	//czas_poczatkowy = dane.czas_koncowy ;
+	
+	
+}
+ 346:	0f 90       	pop	r0
+ 348:	0f 90       	pop	r0
+ 34a:	0f 90       	pop	r0
+ 34c:	0f 90       	pop	r0
+ 34e:	df 91       	pop	r29
+ 350:	cf 91       	pop	r28
+ 352:	ff 91       	pop	r31
+ 354:	ef 91       	pop	r30
+ 356:	bf 91       	pop	r27
+ 358:	af 91       	pop	r26
+ 35a:	9f 91       	pop	r25
+ 35c:	8f 91       	pop	r24
+ 35e:	7f 91       	pop	r23
+ 360:	6f 91       	pop	r22
+ 362:	5f 91       	pop	r21
+ 364:	4f 91       	pop	r20
+ 366:	3f 91       	pop	r19
+ 368:	2f 91       	pop	r18
+ 36a:	1f 91       	pop	r17
+ 36c:	0f 91       	pop	r16
+ 36e:	ff 90       	pop	r15
+ 370:	ef 90       	pop	r14
+ 372:	df 90       	pop	r13
+ 374:	cf 90       	pop	r12
+ 376:	bf 90       	pop	r11
+ 378:	af 90       	pop	r10
+ 37a:	9f 90       	pop	r9
+ 37c:	8f 90       	pop	r8
+ 37e:	7f 90       	pop	r7
+ 380:	6f 90       	pop	r6
+ 382:	5f 90       	pop	r5
+ 384:	4f 90       	pop	r4
+ 386:	3f 90       	pop	r3
+ 388:	2f 90       	pop	r2
+ 38a:	0f 90       	pop	r0
+ 38c:	0f be       	out	0x3f, r0	; 63
+ 38e:	0f 90       	pop	r0
+ 390:	1f 90       	pop	r1
+ 392:	18 95       	reti
+
+00000394 <main>:
+{
+	
+
+	
+	// Timer1 - PWM
+    DDRB	|= (1<<PB1); 					//oc1a wyjscie silnik
+ 394:	b9 9a       	sbi	0x17, 1	; 23
+	TCCR1A	|= (1<<COM1A1);					//non invertic mode pwm
+ 396:	8f b5       	in	r24, 0x2f	; 47
+ 398:	80 68       	ori	r24, 0x80	; 128
+ 39a:	8f bd       	out	0x2f, r24	; 47
+	TCCR1A	|= (1<<WGM11) | (1<<WGM10);		// fast PWM 10bit liczy do 1024
+ 39c:	8f b5       	in	r24, 0x2f	; 47
+ 39e:	83 60       	ori	r24, 0x03	; 3
+ 3a0:	8f bd       	out	0x2f, r24	; 47
+	TCCR1B	|= (1<<WGM12);
+ 3a2:	8e b5       	in	r24, 0x2e	; 46
+ 3a4:	88 60       	ori	r24, 0x08	; 8
+ 3a6:	8e bd       	out	0x2e, r24	; 46
+	
+	
+	// Timer1- ICP pomiar czasu trwania impulsu
+	PORTB |= (1<<PB0);						//pull-up na pinie ICP1
+ 3a8:	c0 9a       	sbi	0x18, 0	; 24
+	TCCR1B |= (1<<ICNC1);					// redukcja szumow
+ 3aa:	8e b5       	in	r24, 0x2e	; 46
+ 3ac:	80 68       	ori	r24, 0x80	; 128
+ 3ae:	8e bd       	out	0x2e, r24	; 46
+	TCCR1B |= (1<<ICES1);					//1 na zboczu narastajacym
+ 3b0:	8e b5       	in	r24, 0x2e	; 46
+ 3b2:	80 64       	ori	r24, 0x40	; 64
+ 3b4:	8e bd       	out	0x2e, r24	; 46
+	TIMSK |= (1<<TICIE1);					//przerwania ICP
+ 3b6:	89 b7       	in	r24, 0x39	; 57
+ 3b8:	80 62       	ori	r24, 0x20	; 32
+ 3ba:	89 bf       	out	0x39, r24	; 57
+	TIMSK |= (1<<TOIE1);					//wlacz przerwania przepelnienia
+ 3bc:	89 b7       	in	r24, 0x39	; 57
+ 3be:	84 60       	ori	r24, 0x04	; 4
+ 3c0:	89 bf       	out	0x39, r24	; 57
+	
+	
+	//Wyjscia pomocnicze
+	DDRD	|=(1<<PD7);
+ 3c2:	8f 9a       	sbi	0x11, 7	; 17
+	DDRD	|=(1<<PD6);
+ 3c4:	8e 9a       	sbi	0x11, 6	; 17
+	DDRD	|=(1<<PD0);
+ 3c6:	88 9a       	sbi	0x11, 0	; 17
+	
+	//pull-upy
+	PORTD	|=(1<<PD5);						//pullup przycisku
+ 3c8:	95 9a       	sbi	0x12, 5	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 3ca:	2f ef       	ldi	r18, 0xFF	; 255
+ 3cc:	89 e6       	ldi	r24, 0x69	; 105
+ 3ce:	98 e1       	ldi	r25, 0x18	; 24
+ 3d0:	21 50       	subi	r18, 0x01	; 1
+ 3d2:	80 40       	sbci	r24, 0x00	; 0
+ 3d4:	90 40       	sbci	r25, 0x00	; 0
+ 3d6:	e1 f7       	brne	.-8      	; 0x3d0 <main+0x3c>
+ 3d8:	00 c0       	rjmp	.+0      	; 0x3da <main+0x46>
+ 3da:	00 00       	nop
+	_delay_ms(1000);
+
+	
+
+	// USART	
+	usart_inicjuj();
+ 3dc:	54 d0       	rcall	.+168    	; 0x486 <usart_inicjuj>
+
+	//wlacz timer1
+	TCCR1B	|= (1<<CS10);					//prescaler 1 - by³ wczeœnie 8
+ 3de:	8e b5       	in	r24, 0x2e	; 46
+ 3e0:	81 60       	ori	r24, 0x01	; 1
+ 3e2:	8e bd       	out	0x2e, r24	; 46
+	
+	//wystartuj silnik
+	OCR1A = 1023;							//maksymalne PWM
+ 3e4:	8f ef       	ldi	r24, 0xFF	; 255
+ 3e6:	93 e0       	ldi	r25, 0x03	; 3
+ 3e8:	9b bd       	out	0x2b, r25	; 43
+ 3ea:	8a bd       	out	0x2a, r24	; 42
+ 3ec:	2f e7       	ldi	r18, 0x7F	; 127
+ 3ee:	88 e3       	ldi	r24, 0x38	; 56
+ 3f0:	91 e0       	ldi	r25, 0x01	; 1
+ 3f2:	21 50       	subi	r18, 0x01	; 1
+ 3f4:	80 40       	sbci	r24, 0x00	; 0
+ 3f6:	90 40       	sbci	r25, 0x00	; 0
+ 3f8:	e1 f7       	brne	.-8      	; 0x3f2 <main+0x5e>
+ 3fa:	00 c0       	rjmp	.+0      	; 0x3fc <main+0x68>
+ 3fc:	00 00       	nop
+	_delay_ms(50);
+
+	
+
+	
+	sei();									//wlacz przerwania globalne
+ 3fe:	78 94       	sei
+	//pêtla g³ówna
+    while (1) 
+    {
+		
+		//zabezpieczenie przed stawaniem silnika
+		if(dane_temp.ovf_counter > 300) OCR1A = 1023;
+ 400:	cf ef       	ldi	r28, 0xFF	; 255
+ 402:	d3 e0       	ldi	r29, 0x03	; 3
+		
+		
+		
+		//zapamietaj wynik
+		cli();
+		dane_temp = dane;
+ 404:	1a e1       	ldi	r17, 0x1A	; 26
+		#ifdef USART_WYKRES_CZAS_OBROTU
+			//Wysy³aj dane co konkretny zadany czas
+			if((licznik_OVF_dla_usartu >= 800) && (UCSRA & (1<<UDRE)))
+			{
+				cli();
+				UDR = dane_temp.czas_obrotu_kola_w_impulsach_timer1 / 500;	// dzielimy by dostosowaæ do aplikacji rysuj¹cej wykres 0-255
+ 406:	74 ef       	ldi	r23, 0xF4	; 244
+ 408:	c7 2e       	mov	r12, r23
+ 40a:	dd 24       	eor	r13, r13
+ 40c:	d3 94       	inc	r13
+ 40e:	e1 2c       	mov	r14, r1
+ 410:	f1 2c       	mov	r15, r1
+	//pêtla g³ówna
+    while (1) 
+    {
+		
+		//zabezpieczenie przed stawaniem silnika
+		if(dane_temp.ovf_counter > 300) OCR1A = 1023;
+ 412:	80 91 ac 00 	lds	r24, 0x00AC
+ 416:	90 91 ad 00 	lds	r25, 0x00AD
+ 41a:	8d 32       	cpi	r24, 0x2D	; 45
+ 41c:	91 40       	sbci	r25, 0x01	; 1
+ 41e:	10 f0       	brcs	.+4      	; 0x424 <main+0x90>
+ 420:	db bd       	out	0x2b, r29	; 43
+ 422:	ca bd       	out	0x2a, r28	; 42
+		
+		
+		
+		//zapamietaj wynik
+		cli();
+ 424:	f8 94       	cli
+		dane_temp = dane;
+ 426:	ee e8       	ldi	r30, 0x8E	; 142
+ 428:	f0 e0       	ldi	r31, 0x00	; 0
+ 42a:	a8 ea       	ldi	r26, 0xA8	; 168
+ 42c:	b0 e0       	ldi	r27, 0x00	; 0
+ 42e:	81 2f       	mov	r24, r17
+ 430:	01 90       	ld	r0, Z+
+ 432:	0d 92       	st	X+, r0
+ 434:	8a 95       	dec	r24
+ 436:	e1 f7       	brne	.-8      	; 0x430 <main+0x9c>
+		sei();
+ 438:	78 94       	sei
+		//#define USART_WYKRES_OCR1A	1
+		//#define USART_PELNE			1
+		
+		#ifdef USART_WYKRES_CZAS_OBROTU
+			//Wysy³aj dane co konkretny zadany czas
+			if((licznik_OVF_dla_usartu >= 800) && (UCSRA & (1<<UDRE)))
+ 43a:	80 91 6c 00 	lds	r24, 0x006C
+ 43e:	90 91 6d 00 	lds	r25, 0x006D
+ 442:	a0 91 6e 00 	lds	r26, 0x006E
+ 446:	b0 91 6f 00 	lds	r27, 0x006F
+ 44a:	80 32       	cpi	r24, 0x20	; 32
+ 44c:	93 40       	sbci	r25, 0x03	; 3
+ 44e:	a1 05       	cpc	r26, r1
+ 450:	b1 05       	cpc	r27, r1
+ 452:	f8 f2       	brcs	.-66     	; 0x412 <main+0x7e>
+ 454:	5d 9b       	sbis	0x0b, 5	; 11
+ 456:	dd cf       	rjmp	.-70     	; 0x412 <main+0x7e>
+			{
+				cli();
+ 458:	f8 94       	cli
+				UDR = dane_temp.czas_obrotu_kola_w_impulsach_timer1 / 500;	// dzielimy by dostosowaæ do aplikacji rysuj¹cej wykres 0-255
+ 45a:	60 91 ae 00 	lds	r22, 0x00AE
+ 45e:	70 91 af 00 	lds	r23, 0x00AF
+ 462:	80 91 b0 00 	lds	r24, 0x00B0
+ 466:	90 91 b1 00 	lds	r25, 0x00B1
+ 46a:	a7 01       	movw	r20, r14
+ 46c:	96 01       	movw	r18, r12
+ 46e:	15 d0       	rcall	.+42     	; 0x49a <__udivmodsi4>
+ 470:	2c b9       	out	0x0c, r18	; 12
+				sei();
+ 472:	78 94       	sei
+				licznik_OVF_dla_usartu = 0;
+ 474:	10 92 6c 00 	sts	0x006C, r1
+ 478:	10 92 6d 00 	sts	0x006D, r1
+ 47c:	10 92 6e 00 	sts	0x006E, r1
+ 480:	10 92 6f 00 	sts	0x006F, r1
+ 484:	c6 cf       	rjmp	.-116    	; 0x412 <main+0x7e>
+
+00000486 <usart_inicjuj>:
+	#define BAUD 9600        //tutaj podaj ¿¹dan¹ prêdkoœæ transmisji
+	#include <util/setbaud.h> //linkowanie tego pliku musi byæ
+	//po zdefiniowaniu BAUD
+	
+	//ustaw obliczone przez makro wartoœci
+	UBRRH = UBRRH_VALUE;
+ 486:	10 bc       	out	0x20, r1	; 32
+	UBRRL = UBRRL_VALUE;
+ 488:	83 e3       	ldi	r24, 0x33	; 51
+ 48a:	89 b9       	out	0x09, r24	; 9
+	#if USE_2X
+	UCSRA |=  (1<<U2X);
+	#else
+	UCSRA &= ~(1<<U2X);
+ 48c:	59 98       	cbi	0x0b, 1	; 11
+	
+	//Ustawiamy pozosta³e parametry modu³ USART
+	//U W A G A !!!
+	//W ATmega8, aby zapisaæ do rejestru UCSRC nale¿y ustawiaæ bit URSEL
+	//zobacz tak¿e: http://mikrokontrolery.blogspot.com/2011/04/avr-czyhajace-pulapki.html#avr_pulapka_2
+	UCSRC = (1<<URSEL) | (1<<UCSZ1) | (1<<UCSZ0);  //bitów danych: 8
+ 48e:	86 e8       	ldi	r24, 0x86	; 134
+ 490:	80 bd       	out	0x20, r24	; 32
+	//bity stopu:  1
+	//parzystoœæ:  brak
+	//w³¹cz nadajnik i odbiornik oraz ich przerwania odbiornika
+	//przerwania nadajnika w³¹czamy w funkcji wyslij_wynik()
+	UCSRB = (1<<TXEN);
+ 492:	88 e0       	ldi	r24, 0x08	; 8
+ 494:	8a b9       	out	0x0a, r24	; 10
+	DDRD |= (1<<PD1);	//TxD na wyjœcie
+ 496:	89 9a       	sbi	0x11, 1	; 17
+ 498:	08 95       	ret
+
+0000049a <__udivmodsi4>:
+ 49a:	a1 e2       	ldi	r26, 0x21	; 33
+ 49c:	1a 2e       	mov	r1, r26
+ 49e:	aa 1b       	sub	r26, r26
+ 4a0:	bb 1b       	sub	r27, r27
+ 4a2:	fd 01       	movw	r30, r26
+ 4a4:	0d c0       	rjmp	.+26     	; 0x4c0 <__udivmodsi4_ep>
+
+000004a6 <__udivmodsi4_loop>:
+ 4a6:	aa 1f       	adc	r26, r26
+ 4a8:	bb 1f       	adc	r27, r27
+ 4aa:	ee 1f       	adc	r30, r30
+ 4ac:	ff 1f       	adc	r31, r31
+ 4ae:	a2 17       	cp	r26, r18
+ 4b0:	b3 07       	cpc	r27, r19
+ 4b2:	e4 07       	cpc	r30, r20
+ 4b4:	f5 07       	cpc	r31, r21
+ 4b6:	20 f0       	brcs	.+8      	; 0x4c0 <__udivmodsi4_ep>
+ 4b8:	a2 1b       	sub	r26, r18
+ 4ba:	b3 0b       	sbc	r27, r19
+ 4bc:	e4 0b       	sbc	r30, r20
+ 4be:	f5 0b       	sbc	r31, r21
+
+000004c0 <__udivmodsi4_ep>:
+ 4c0:	66 1f       	adc	r22, r22
+ 4c2:	77 1f       	adc	r23, r23
+ 4c4:	88 1f       	adc	r24, r24
+ 4c6:	99 1f       	adc	r25, r25
+ 4c8:	1a 94       	dec	r1
+ 4ca:	69 f7       	brne	.-38     	; 0x4a6 <__udivmodsi4_loop>
+ 4cc:	60 95       	com	r22
+ 4ce:	70 95       	com	r23
+ 4d0:	80 95       	com	r24
+ 4d2:	90 95       	com	r25
+ 4d4:	9b 01       	movw	r18, r22
+ 4d6:	ac 01       	movw	r20, r24
+ 4d8:	bd 01       	movw	r22, r26
+ 4da:	cf 01       	movw	r24, r30
+ 4dc:	08 95       	ret
+
+000004de <__divmodsi4>:
+ 4de:	05 2e       	mov	r0, r21
+ 4e0:	97 fb       	bst	r25, 7
+ 4e2:	16 f4       	brtc	.+4      	; 0x4e8 <__divmodsi4+0xa>
+ 4e4:	00 94       	com	r0
+ 4e6:	0f d0       	rcall	.+30     	; 0x506 <__negsi2>
+ 4e8:	57 fd       	sbrc	r21, 7
+ 4ea:	05 d0       	rcall	.+10     	; 0x4f6 <__divmodsi4_neg2>
+ 4ec:	d6 df       	rcall	.-84     	; 0x49a <__udivmodsi4>
+ 4ee:	07 fc       	sbrc	r0, 7
+ 4f0:	02 d0       	rcall	.+4      	; 0x4f6 <__divmodsi4_neg2>
+ 4f2:	46 f4       	brtc	.+16     	; 0x504 <__divmodsi4_exit>
+ 4f4:	08 c0       	rjmp	.+16     	; 0x506 <__negsi2>
+
+000004f6 <__divmodsi4_neg2>:
+ 4f6:	50 95       	com	r21
+ 4f8:	40 95       	com	r20
+ 4fa:	30 95       	com	r19
+ 4fc:	21 95       	neg	r18
+ 4fe:	3f 4f       	sbci	r19, 0xFF	; 255
+ 500:	4f 4f       	sbci	r20, 0xFF	; 255
+ 502:	5f 4f       	sbci	r21, 0xFF	; 255
+
+00000504 <__divmodsi4_exit>:
+ 504:	08 95       	ret
+
+00000506 <__negsi2>:
+ 506:	90 95       	com	r25
+ 508:	80 95       	com	r24
+ 50a:	70 95       	com	r23
+ 50c:	61 95       	neg	r22
+ 50e:	7f 4f       	sbci	r23, 0xFF	; 255
+ 510:	8f 4f       	sbci	r24, 0xFF	; 255
+ 512:	9f 4f       	sbci	r25, 0xFF	; 255
+ 514:	08 95       	ret
+
+00000516 <__mulshisi3>:
+ 516:	b7 ff       	sbrs	r27, 7
+ 518:	04 c0       	rjmp	.+8      	; 0x522 <__muluhisi3>
+
+0000051a <__mulohisi3>:
+ 51a:	03 d0       	rcall	.+6      	; 0x522 <__muluhisi3>
+ 51c:	82 1b       	sub	r24, r18
+ 51e:	93 0b       	sbc	r25, r19
+ 520:	08 95       	ret
+
+00000522 <__muluhisi3>:
+ 522:	09 d0       	rcall	.+18     	; 0x536 <__umulhisi3>
+ 524:	a5 9f       	mul	r26, r21
+ 526:	90 0d       	add	r25, r0
+ 528:	b4 9f       	mul	r27, r20
+ 52a:	90 0d       	add	r25, r0
+ 52c:	a4 9f       	mul	r26, r20
+ 52e:	80 0d       	add	r24, r0
+ 530:	91 1d       	adc	r25, r1
+ 532:	11 24       	eor	r1, r1
+ 534:	08 95       	ret
+
+00000536 <__umulhisi3>:
+ 536:	a2 9f       	mul	r26, r18
+ 538:	b0 01       	movw	r22, r0
+ 53a:	b3 9f       	mul	r27, r19
+ 53c:	c0 01       	movw	r24, r0
+ 53e:	a3 9f       	mul	r26, r19
+ 540:	01 d0       	rcall	.+2      	; 0x544 <__umulhisi3+0xe>
+ 542:	b2 9f       	mul	r27, r18
+ 544:	70 0d       	add	r23, r0
+ 546:	81 1d       	adc	r24, r1
+ 548:	11 24       	eor	r1, r1
+ 54a:	91 1d       	adc	r25, r1
+ 54c:	08 95       	ret
+
+0000054e <_exit>:
+ 54e:	f8 94       	cli
+
+00000550 <__stop_program>:
+ 550:	ff cf       	rjmp	.-2      	; 0x550 <__stop_program>
